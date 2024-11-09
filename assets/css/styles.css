@@ -1,0 +1,470 @@
+/* Header */
+.header-cine {
+    background-color: red;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.header-cine .logo-cine {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.header-cine h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Login */
+.login-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.login-container h2 {
+    color: red;
+    font-size: 24px;
+}
+
+.login-container form {
+    display: inline-block;
+    text-align: left;
+}
+
+.login-container label, .login-container input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.login-container button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.header-cine {
+    background-color: #d32f2f;
+    border-bottom: 4px solid #000;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    position: relative;
+}
+
+.logo-cine {
+    margin-left: 20px;
+    width: 70px;
+    height: auto;
+}
+
+h2 {
+    margin: 20px 0;
+}
+
+.login-container {
+    width: 300px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button[type="submit"]:hover {
+    background-color: #c12727;
+}
+
+footer {
+    background-color: #000;
+    color: white;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.header-cine {
+    background-color: #d32f2f;
+    border-bottom: 4px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    position: relative;
+}
+
+.logo-cine {
+    position: absolute;
+    left: 20px;
+    width: 70px;
+    height: auto;
+}
+
+h1 {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+}
+
+footer {
+    background-color: #000;
+    color: white;
+    padding: 15px 0;
+    font-size: 14px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.fila-peliculas {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.pelicula {
+    width: 30%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.pelicula img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.info-pelicula {
+    padding: 10px;
+    background-color: white;
+}
+
+.info-pelicula h3 {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.info-pelicula p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #d32f2f;
+}
+
+.btn-reservar {
+    background-color: #d32f2f;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.btn-reservar:hover {
+    background-color: #b71c1c;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.confirmacion-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.detalles-reserva p {
+    font-size: 16px;
+    margin: 10px 0;
+    text-align: left;
+}
+
+button {
+    background-color: #d32f2f;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #b71c1c;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.gestion-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.gestion-container h2 {
+    font-size: 20px;
+    color: #d32f2f;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+
+input[type="text"], input[type="number"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #b71c1c;
+}
+
+#lista-peliculas {
+    margin-top: 20px;
+}
+
+.pelicula-item {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.pelicula-item img {
+    width: 100px;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.pelicula-item h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.pelicula-item p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+button[type="button"] {
+    background-color: #d32f2f;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button[type="button"]:hover {
+    background-color: #b71c1c;
+}
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-nav {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-nav ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin: 20px 0;
+}
+
+.sidebar-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar-nav a:hover {
+    background-color: #444;
+}
+/* Ajustes para  sidebar */
+.main-content {
+    margin-left: 250px; 
+    padding: 20px;
+}
+
+.gestion-container {
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.leyenda {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 30px;
+}
+
+.item-leyenda {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-leyenda p {
+    margin: 0;
+}
+
+.sala {
+    display: grid;
+    grid-template-columns: 50px repeat(4, 50px);
+    gap: 10px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.fila-letra {
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.asiento {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #d3d3d3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ocupado {
+    background-color: #000000;
+    cursor: not-allowed;
+}
+
+.seleccionado {
+    background-color: #FF0000;
+}
+
+.asiento:hover:not(.ocupado):not(.deshabilitado) {
+    background-color: #FF0000;
+}
+
+#continuar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0000FF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
