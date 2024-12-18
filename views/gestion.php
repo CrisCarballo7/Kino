@@ -127,9 +127,10 @@ $peliculas = $conexion->query("SELECT * FROM peliculas");
                     <td><input type="number" name="precio" value="<?php echo $p['precio']; ?>" required></td>
                     <td><input type="text" name="imagen" value="<?php echo $p['imagen']; ?>"></td>
                     <td class="actions">
-                        <button type="submit">Guardar</button>
-                        <button type="submit" formnovalidate formaction="crud_peliculas.php" name="accion" value="eliminar">Eliminar</button>
-                    </td>
+    <button type="submit">Guardar</button>
+    <button type="submit" name="accion" value="eliminar">Eliminar</button>
+</td>
+
                 </form>
             </tr>
             <?php endwhile; ?>
