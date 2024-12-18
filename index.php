@@ -1,42 +1,42 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Cine Kino</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Cine KINO - Inicio</title>
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
+<header class="navbar">
+    <div class="nav-left">
+        <img src="assets/img/kino_logo.jpg" alt="Logo Kino" class="logo-cine">
+        <h1>Cine KINO</h1>
+    </div>
+    <nav class="nav-right">
+        <ul>
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="views/cartelera.php">Cartelera</a></li>
+            <?php if(!isset($_SESSION['admin_logged'])): ?>
+                <li><a href="views/login.php">Iniciar Sesión</a></li>
+            <?php else: ?>
+                <li><a href="views/gestion.php">Gestión</a></li>
+                <li><a href="views/logout.php">Cerrar Sesión</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
 
-    <header class="header-cine">
-        <img src="img/kino logo.jpg" alt="Logo Kino" class="logo-cine">
-        <h1>Bienvenidos a Cine Kino</h1>
-    </header>
+<div class="container" style="text-align: center;">
+    <img src="assets/img/kino_logo.jpg" alt="Cine Kino Logo" style="width:150px;margin-top:50px;">
+    <h2>Bienvenido a Cine KINO</h2>
+    <p>Disfruta de las mejores películas con la mejor calidad y comodidad.</p>
+    <a href="views/cartelera.php" class="btn">Ver Cartelera</a>
+    <a href="views/login.php" class="btn">Iniciar Sesión (Admin)</a>
+</div>
 
-    <main class="main-container">
-        <section class="intro">
-            <h2>Descubre las mejores películas en Cine Kino</h2>
-            <p>En Cine Kino, encontrarás una amplia selección de las mejores películas del momento. Disfruta de una experiencia de cine única con salas cómodas, asientos reservados, y la última tecnología en imagen y sonido.</p>
-        </section>
-
-        <section class="features">
-            <h2>¿Qué ofrecemos?</h2>
-            <ul>
-                <li><strong>Cartelera Actualizada:</strong> Consulta nuestra <a href="views/cartelera.php">Cartelera</a> y reserva tus asientos para las últimas películas.</li>
-                <li><strong>Gestión de Películas:</strong> Administradores pueden <a href="views/login.php">Iniciar Sesión</a> para gestionar la programación y precios.</li>
-                <li><strong>Reserva en Línea:</strong> Reserva tus asientos preferidos y asegura tu lugar en la función.</li>
-            </ul>
-        </section>
-
-        <section class="cta">
-            <a href="views/cartelera.php" class="btn-main">Ver Cartelera</a>
-            <a href="views/login.php" class="btn-main">Login Administrador</a>
-        </section>
-    </main>
-
-    <footer>
-        <p>Cine Kino © 2024. Todos los derechos reservados</p>
-    </footer>
-
+<footer class="footer">
+    <p>Cine Kino © 2024. Todos los derechos reservados</p>
+</footer>
 </body>
 </html>
