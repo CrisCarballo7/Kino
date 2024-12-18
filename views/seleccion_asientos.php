@@ -1,101 +1,91 @@
-<?php include('../templates/header.php'); ?>
-<?php include('../templates/navbar.php'); ?>
-<?php include('../includes/db_connection.php'); ?>
-
 <?php
+include('../templates/header.php');
+include('../templates/navbar.php');
+include('../includes/db_connection.php');
+
 $pelicula_id = $_GET['pelicula_id'] ?? 0;
-$horario = $_GET['horario'] ?? '';
-$cantidad = $_GET['cantidad'] ?? 1;
-$precio = $_GET['precio'] ?? 0;
+$horario_id = $_GET['horario_id'] ?? 0;
 
-// Obtener información de la película, sala y horario
-$stmt = $conexion->prepare("
-    SELECT p.titulo, h.horario_id, s.sala_id, s.nombre AS sala_nombre
-    FROM peliculas p
-    JOIN horarios h ON p.pelicula_id=h.pelicula_id
-    JOIN salas s ON h.sala_id=s.sala_id
-    WHERE p.pelicula_id=? AND h.fecha_hora=? LIMIT 1
-");
-$stmt->bind_param("is", $pelicula_id, $horario);
-$stmt->execute();
-$result = $stmt->get_result();
-$info = $result->fetch_assoc();
+// Verificar si se seleccionó un horario
+if ($horario_id == 0) {
+    // Mostrar horarios disponibles
+    $stmt_horarios = $conexion->prepare("
+        SELECT h.horario_id, h.fecha_hora, s.nombre AS sala_nombre
+        FROM horarios h
+        JOIN salas s ON h.sala_id = s.sala_id
+        WHERE h.pelicula_id = ?
+        ORDER BY h.fecha_hora ASC
+    ");
+    $stmt_horarios->bind_param("i", $pelicula_id);
+    $stmt_horarios->execute();
+    $result_horarios = $stmt_horarios->get_result();
+    ?>
 
-if (!$info) {
-    echo "<div class='container'><h2>Error: Horario no encontrado</h2></div>";
+    <div class="container">
+        <h2>Selecciona Horario</h2>
+        <div class="horarios">
+            <?php while ($h = $result_horarios->fetch_assoc()): ?>
+                <a href="?pelicula_id=<?php echo $pelicula_id; ?>&horario_id=<?php echo $h['horario_id']; ?>">
+                    <button><?php echo date("h:i A", strtotime($h['fecha_hora'])) . " - Sala: " . $h['sala_nombre']; ?></button>
+                </a>
+            <?php endwhile; ?>
+        </div>
+    </div>
+
+    <?php
     include('../templates/footer.php');
     exit;
 }
 
-$sala_id = $info['sala_id'];
-$horario_id = $info['horario_id'];
-
-// Obtener asientos de la sala
-$asientos_sql = "
+// Obtener la información de asientos para el horario seleccionado
+$stmt_asientos = $conexion->prepare("
     SELECT a.asiento_id, a.fila, a.numero_asiento,
-           IF(ar.asiento_id IS NOT NULL, 1, a.ocupado) AS ocupado_final
+           IF(ar.asiento_id IS NOT NULL, 1, a.ocupado) AS ocupado
     FROM asientos a
-    LEFT JOIN (
-        SELECT asiento_id FROM asientos_reservados
-        JOIN reservas r ON r.reserva_id = asientos_reservados.reserva_id
-        WHERE r.horario_id = ?
-    ) ar ON a.asiento_id = ar.asiento_id
-    WHERE a.sala_id = ?
+    LEFT JOIN asientos_reservados ar ON a.asiento_id = ar.asiento_id
+    JOIN horarios h ON a.sala_id = h.sala_id
+    WHERE h.horario_id = ?
     ORDER BY a.fila, a.numero_asiento
-";
-$stmt_asientos = $conexion->prepare($asientos_sql);
-$stmt_asientos->bind_param("ii", $horario_id, $sala_id);
+");
+$stmt_asientos->bind_param("i", $horario_id);
 $stmt_asientos->execute();
-$asientos_res = $stmt_asientos->get_result();
+$result_asientos = $stmt_asientos->get_result();
 
-$asientos_data = [];
-while ($a = $asientos_res->fetch_assoc()) {
-    $asientos_data[$a['fila']][$a['numero_asiento']] = [
-        'id' => $a['asiento_id'],
-        'ocupado' => $a['ocupado_final']
-    ];
+$asientos = [];
+while ($row = $result_asientos->fetch_assoc()) {
+    $asientos[$row['fila']][$row['numero_asiento']] = $row['ocupado'];
 }
 ?>
 
-<div class="asientos-container">
-    <h2>Reserva de Asientos</h2>
-    <p><strong>Película:</strong> <?php echo htmlspecialchars($info['titulo']); ?></p>
-    <p><strong>Horario:</strong> <?php echo htmlspecialchars($horario); ?></p>
-    <p><strong>Cantidad:</strong> <?php echo intval($cantidad); ?></p>
-    <p><strong>Sala:</strong> <?php echo htmlspecialchars($info['sala_nombre']); ?></p>
-
-    <div class="leyenda">
-        <div class="item-leyenda"><span class="asiento-label ocupado">X</span> Ocupado</div>
-        <div class="item-leyenda"><span class="asiento-label disponible">A</span> Disponible</div>
-        <div class="item-leyenda"><span class="asiento-label seleccionado">S</span> Seleccionado</div>
-    </div>
-
+<div class="container">
+    <h2>Selecciona tus Asientos</h2>
     <form action="pago.php" method="post">
-        <input type="hidden" name="pelicula_id" value="<?php echo intval($pelicula_id); ?>">
-        <input type="hidden" name="horario_id" value="<?php echo intval($horario_id); ?>">
-        <input type="hidden" name="horario" value="<?php echo htmlspecialchars($horario); ?>">
-        <input type="hidden" name="cantidad" value="<?php echo intval($cantidad); ?>">
-        <input type="hidden" name="precio" value="<?php echo intval($precio); ?>">
+        <input type="hidden" name="horario_id" value="<?php echo $horario_id; ?>">
+
+        <div class="leyenda">
+            <span style="color: grey;">&#9632; Ocupado</span>
+            <span style="color: lightgrey;">&#9632; Disponible</span>
+            <span style="color: red;">&#9632; Seleccionado</span>
+        </div>
 
         <div class="sala">
-            <?php foreach ($asientos_data as $fila => $asientos): ?>
-                <div class="fila-letra"><?php echo $fila; ?></div>
-                <?php foreach ($asientos as $numero_asiento => $asiento): ?>
-                    <?php if ($asiento['ocupado'] == 1): ?>
-                        <div><input type="checkbox" disabled> <?php echo $fila . $numero_asiento; ?></div>
-                    <?php else: ?>
-                        <div>
-                            <label>
-                                <input type="checkbox" name="asientos[]" value="<?php echo $asiento['id']; ?>">
-                                <?php echo $fila . $numero_asiento; ?>
+            <?php foreach ($asientos as $fila => $numeros): ?>
+                <div class="fila">
+                    <?php foreach ($numeros as $numero => $ocupado): ?>
+                        <?php if ($ocupado): ?>
+                            <div class="asiento ocupado"><?php echo $fila . $numero; ?></div>
+                        <?php else: ?>
+                            <label class="asiento disponible">
+                                <input type="checkbox" name="asientos[]" value="<?php echo $fila . $numero; ?>">
+                                <?php echo $fila . $numero; ?>
                             </label>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
             <?php endforeach; ?>
         </div>
 
-        <button type="submit" class="btn" style="margin-top:20px;">Continuar al Pago</button>
+        <button type="submit" class="btn">Continuar al Pago</button>
     </form>
 </div>
 

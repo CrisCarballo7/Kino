@@ -3,6 +3,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     color: #333;
+    text-align: center;
 }
 
 .navbar {
@@ -73,7 +74,6 @@ h1, h2, h3 {
     padding: 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     border-radius: 10px;
-    text-align: center;
 }
 
 .btn {
@@ -184,16 +184,42 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
 
 .sala {
     display: grid;
-    grid-template-columns: 50px repeat(4, 60px);
+    grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-    justify-content: center;
+    justify-items: center;
     margin-top: 30px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.fila-letra {
-    text-align: center;
-    font-weight: bold;
+.asiento {
+    width: 50px;
+    height: 50px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.asiento.ocupado {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.asiento.disponible {
+    background-color: lightgrey;
+    color: black;
+}
+
+.asiento input[type="checkbox"] {
+    display: none;
+}
+
+.asiento input[type="checkbox"]:checked + span {
+    background-color: red;
+    color: white;
 }
